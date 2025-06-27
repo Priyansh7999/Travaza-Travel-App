@@ -185,33 +185,12 @@ export const Colors = {
   success: colors.success[500],
   warning: colors.warning[500],
   error: colors.error[500],
-  info: colors.information[500]
+  info: colors.information[500],
+
+  DarkBackground:'#031F2B',
+  Button:'#3DBFD9',
+  ButtonText:'#263238',
+  Background:'#007A8C',
 };
 
 export default Colors;
-
-// Usage examples:
-// 
-// Import in your component:
-// import Colors from './colors';
-// 
-// Use in styles:
-// backgroundColor: Colors.primary[500]
-// backgroundColor: Colors.primaryBase
-// color: Colors.text
-// borderColor: Colors.border
-//
-// For React Native StyleSheet:
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: Colors.background,
-//     borderColor: Colors.border,
-//   },
-//   primaryButton: {
-//     backgroundColor: Colors.primaryBase,
-//     borderRadius: 8,
-//   },
-//   successText: {
-//     color: Colors.success,
-//   }
-// });

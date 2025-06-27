@@ -1,39 +1,46 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
-import Colors from '../Theme/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import Checkbox from 'expo-checkbox';
-
+import Colors from '../Theme/Colors';
+import { useTheme } from '../Theme/ColorTheme';
+import { Image } from 'expo-image';
 const Signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isChecked, setChecked] = useState(false);
+    const colorScheme = useTheme();
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
             <View style={styles.header}>
-                <Text style={styles.title}>Let's get you Login!</Text>
-                <Text style={styles.subtitle}>Enter your information below</Text>
+                <View style={styles.logoContainer}>
+                    <Image source={require('../assets/images/icon.png')} style={styles.logo} />
+                    <Text style={[styles.logoTitle, { color: colorScheme.primary }]}>TRAVAZA</Text>
+                </View>
+                
+                <Text style={[styles.title, { color: colorScheme.text }]}>Let's get you Login!</Text>
+                <Text style={[styles.subtitle, { color: colorScheme.primary }]}>Enter your information below</Text>
             </View>
             <View style={styles.form}>
-                <View style={styles.input}>
-                    <Text style={styles.label}>Email</Text>
+                <View style={[styles.input]}>
+                    <Text style={[styles.label, { color: colorScheme.text }]}>Email</Text>
                     <TextInput
                         onChangeText={setEmail}
                         value={email}
                         placeholder="Enter your email"
                         placeholderTextColor={Colors.textSecondary}
-                        style={styles.inputField}
+                        style={[styles.inputField, { color: colorScheme.text }]}
                     />
                 </View>
                 <View style={styles.input}>
-                    <Text style={styles.label}>Password</Text>
+                    <Text style={[styles.label, { color: colorScheme.text }]}>Password</Text>
                     <TextInput
                         onChangeText={setPassword}
                         value={password}
                         placeholder="Enter your password"
                         placeholderTextColor={Colors.textSecondary}
-                        style={styles.inputField}
+                        style={[styles.inputField, { color: colorScheme.text }]}
                     />
                 </View>
                 <View style={styles.checkboxContainer}>
@@ -44,18 +51,18 @@ const Signin = () => {
                             onValueChange={setChecked}
                             color={isChecked ? '#4630EB' : undefined}
                         />
-                        <Text>Remember me</Text>
+                        <Text style={[styles.checkboxText, { color: colorScheme.text }]}>Remember me</Text>
                     </View>
                     <View style={styles.forgotPassword}>
-                        <Text style={styles.forgotPasswordText} onPress={() => { router.push("/ForgotPassword") }}>Forgot Password?</Text>
+                        <Text style={[styles.forgotPasswordText, { color: colorScheme.text }]} onPress={() => { router.push("/ForgotPassword") }}>Forgot Password?</Text>
                     </View>
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Login</Text>
+                    <TouchableOpacity style={[styles.button, { backgroundColor: Colors.Button }]} onPress={() => { router.push("/HomePage") }}>
+                        <Text style={[styles.buttonText, { color: Colors.ButtonText }]}>Login</Text>
                     </TouchableOpacity>
-                    <Text style={styles.subtitle}>Don't have an account? <Text style={styles.link} onPress={() => { router.push("/Signup") }}>Register Now</Text></Text>
+                    <Text style={[styles.subtitle, { color: colorScheme.text }]}>Don't have an account? <Text style={styles.link} onPress={() => { router.push("/Signup") }}>Register Now</Text></Text>
                 </View>
             </View>
         </SafeAreaView>
@@ -70,9 +77,22 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 20,
     },
+    logoContainer: {
+        marginBottom: 10,
+    },
+    logo: {
+        width: 110,
+        height: 76,
+    },
+    logoTitle: {
+         fontSize: 15,
+        marginBottom: 15,
+        marginLeft: 20,
+        fontFamily: 'Lexend-Medium'
+    },
     title: {
         fontSize: 24,
-        fontFamily: 'Lexend-Medium'
+        fontFamily: 'Lexend-Medium',
     },
     subtitle: {
         fontFamily: 'Lexend-Light'
@@ -108,12 +128,15 @@ const styles = StyleSheet.create({
     checkbox: {
         marginRight: 10,
     },
+    checkboxText: {
+        fontFamily: 'Lexend-ExtraLight'
+    },
     forgotPassword: {
         alignItems: 'flex-end',
     },
     forgotPasswordText: {
         color: Colors.primary[700],
-        fontFamily: 'Lexend-ExtraLight'
+        fontFamily: 'Lexend-Medium'
     },
     buttonContainer: {
         alignItems: 'center',
@@ -132,7 +155,7 @@ const styles = StyleSheet.create({
     },
     link: {
         color: Colors.primary[700],
-        fontFamily: 'Lexend-ExtraLight'
+        fontFamily: 'Lexend-Medium'
     }
 })
 

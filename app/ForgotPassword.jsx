@@ -1,29 +1,41 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../Theme/Colors';
+import { useTheme } from '../Theme/ColorTheme';
+import { router } from 'expo-router';
+import { Image } from 'expo-image';
 const ForgotPassword = () => {
+    const colorScheme = useTheme();
+    const [email, setEmail] = useState('');
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
+            <Ionicons name="arrow-back-outline" size={24} onPress={() => router.back()} color={colorScheme.text} />
             <View style={styles.header}>
-                <Text style={styles.title}>Forgot Password</Text>
-                <Text style={styles.subtitle}>Select which contact details you want to reset your password</Text>
+                <Text style={[styles.title, { color: colorScheme.text }]}>Forgot Password</Text>
+                <Text style={[styles.subtitle, { color: colorScheme.primary }]}>Select which contact details you want to reset your password</Text>
+            </View>
+            <View style={styles.imageContainer}>
+                <Image source={require('../assets/images/forgetpassword.png')} style={styles.image} />
             </View>
             <View style={styles.buttonContainer}>
-                <Pressable style={styles.button}>
+                <View style={styles.button}>
                     <Ionicons name="mail-outline" size={24} style={styles.icon} />
                     <View style={styles.textContainer}>
-                        <Text style={styles.text} >Send OTP via Email</Text>
-                        <Text style={styles.email}>priyansh7999@gamil.com</Text>
+                        <Text style={[styles.text, { color: colorScheme.text }]} >Send OTP via Email</Text>
+                        <TextInput
+                            onChangeText={setEmail}
+                            value={email}
+                            placeholder="Enter your email"
+                            placeholderTextColor={Colors.textSecondary}
+                            style={[styles.inputField, { color: colorScheme.text }]}
+                        />
                     </View>
-                </Pressable>
-                <Pressable style={styles.button}>
-                    <Ionicons name="call-outline" size={24} style={styles.icon} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.text}>Send OTP via Phone</Text>
-                        <Text style={styles.email}>1234567890</Text>
-                    </View>
+                </View>
+                <Pressable style={styles.SubmitButton} onPress={() => router.push('/EnterOTP')}>
+                    <Text style={styles.SubmitButtonText}>Send OTP</Text>
+                    <Ionicons name="arrow-forward-outline" size={24} />
                 </Pressable>
             </View>
         </SafeAreaView>
@@ -45,6 +57,16 @@ const styles = StyleSheet.create({
     subtitle: {
         fontFamily: 'Lexend-Light'
     },
+    imageContainer: {
+        alignItems: 'center',
+        marginBottom: 20,
+        color: 'white'
+    },
+    image: {
+        width: 300,
+        height: 300,
+        color: 'white'
+    },
     buttonContainer: {
         width: '100%',
         flex: 1,
@@ -64,8 +86,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Lexend',
-        color : Colors.textSecondary
-        
+        color: Colors.textSecondary
+
     },
     email: {
         fontFamily: 'Lexend-Light'
@@ -75,6 +97,22 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary[600],
         padding: 10,
         borderRadius: 15,
+    },
+    inputField: {
+        fontFamily: 'Lexend-Light'
+    },
+    SubmitButton: {
+        backgroundColor: Colors.Button,
+        padding: 10,
+        borderRadius: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    SubmitButtonText: {
+        color: Colors.ButtonText,
+        fontSize: 16,
+        fontFamily: 'Lexend-Medium'
     },
 })
 

@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     'Lexend': require('../assets/fonts/Lexend-Regular.ttf'),
@@ -18,15 +18,35 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <>
-    <StatusBar style="auto"/>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="Signin" options={{ headerShown: false }} />
-        <Stack.Screen name="Signup" options={{ headerShown: false }} />
-        <Stack.Screen name="ForgotPassword" options={{ headerShown: false }} />
+    <><GestureHandlerRootView>
+      <StatusBar style="auto" />
+      <Stack screenOptions={{ headerShown: false, }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="Signin" />
+        <Stack.Screen name="Signup" />
+        <Stack.Screen name="ForgotPassword"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+            animation: 'fade_from_bottom',
+          }}
+        />
+        <Stack.Screen name="EnterOTP"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+            animation: 'fade_from_bottom',
+          }}
+        />
+        <Stack.Screen name="NewPassword"
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+            animation: 'fade_from_bottom',
+          }}
+        />
       </Stack>
+    </GestureHandlerRootView>
     </>
-
   );
 }

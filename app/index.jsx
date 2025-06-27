@@ -12,17 +12,17 @@ const OnboardingScreen = () => {
   const onboardingData = [
     { 
       title: "Let's make your dream vacation", 
-      content: "Turn your travel dreams into reality. Whether it's pristine beaches, majestic mountains, or vibrant cities - we'll help you discover and plan the perfect getaway that matches your wanderlust.",
-      img: require("../assets/images/onboarding1.png"),
-    },
-    { 
-      title: "Discover best places for your vacation", 
-      content: "Explore hidden gems and popular destinations curated just for you. Our smart recommendations consider your preferences, budget, and travel style to suggest places you'll absolutely love.",
+      content: "Turn your travel dreams into reality. Whether it's pristine beaches, majestic mountains, or vibrant cities we've got you covered.",
       img: require("../assets/images/onboarding2.png"),
     },
     { 
+      title: "Discover best places for your vacation", 
+      content: "Explore hidden gems. Our smart recommendations consider your preferences to suggest places you'll absolutely love.",
+      img: require("../assets/images/onboarding5.png"),
+    },
+    { 
       title: "Make your path to effortless travel", 
-      content: "Say goodbye to travel stress! From booking flights to finding accommodations, we streamline every step of your journey. Focus on making memories while we handle the details.",
+      content: "Say goodbye to travel stress! we streamline every step of your journey. Focus on making memories while we handle the details.",
       img: require("../assets/images/onboarding3.png"),
     }
   ];
@@ -42,7 +42,6 @@ const OnboardingScreen = () => {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.imageContainer}>
         <Image
           source={onboardingData[currentStep]?.img}
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   image: {
-    width: width,
+    width: '100%',
     height: '100%',
     position: 'absolute',
     top: 0,
@@ -116,7 +115,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
   },
   topContent: {
     position: 'absolute',
@@ -138,8 +137,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     paddingHorizontal: 20,
-    paddingBottom: 40,
-    paddingTop: 30,
+    paddingBottom: 25,
+    paddingTop: 25,
+    backgroundColor: Colors.DarkBackground,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
   progressContainer: {
     flexDirection: 'row',
@@ -165,18 +167,17 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    fontSize: 28,
-    color: Colors.tertiary[200],
+    fontSize: 25,
+    color: '#FFFFFF',
     textAlign: 'center',
-    fontFamily:'Lexend-Bold',
+    fontFamily:'Lexend-Medium',
     lineHeight: 34,
   },
   contentText: {
     fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: '#D1D2A2',
     textAlign: 'center',
-    lineHeight: 24,
-    fontFamily:'Lexend',
+    fontFamily:'Lexend-Light',
     padding: 10,
   },
   navigation: {
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nextButton: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.Button,
     paddingHorizontal: 30,
     paddingVertical: 15,
     borderRadius: 25,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   nextText: {
-    color: '#333',
+    color: Colors.ButtonText,
     fontSize: 16,
     fontWeight: '600',
     fontFamily:'Lexend-Bold',

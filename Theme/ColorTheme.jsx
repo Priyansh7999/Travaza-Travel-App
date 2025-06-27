@@ -28,8 +28,8 @@ const DarkTheme = {
     warning: "#EAB308",
     error: "#EF4444",
     info: "#3B82F6",
-    background: "#1F2937",
-    surface: "#374151",
+    background: "black",
+    surface: "#242528",
     text: "#FFFFFF",
     textSecondary: "#D1D5DB",
     border: "#4B5563",
@@ -38,7 +38,9 @@ const DarkTheme = {
     success: "#22C55E",
     warning: "#EAB308",
     error: "#EF4444",
-    info: "#3B82F6"
+    info: "#3B82F6",
+    tab: "#374151",
+    
 }
 export const useTheme = () => {
     const colorScheme = useColorScheme();

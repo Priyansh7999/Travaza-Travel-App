@@ -2,7 +2,6 @@ import { Image } from 'expo-image';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../Theme/ColorTheme';
-import SearchBar from '../../components/SearchBar';
 import { popularDestinations } from '../../data/PopularDestinations'
 import { DestinationsCard } from '../../components/DestinationsCard';
 import TripCategory from '../../components/TripCategory';
@@ -66,6 +65,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         alignItems: 'center',
+        
     },
     image: {
         width: 50,

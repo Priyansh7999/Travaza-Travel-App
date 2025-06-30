@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../Theme/ColorTheme';
 import Colors from '../Theme/Colors';
+import { router } from 'expo-router';
 export const DestinationsCard = ({ item }) => {
     const colorScheme = useTheme();
     const [liked, setLiked] = useState(false);
@@ -11,7 +12,12 @@ export const DestinationsCard = ({ item }) => {
         setLiked(!liked);
     }
     return (
-        <View style={[styles.container, { backgroundColor: colorScheme.background }]} >
+        <Pressable onPress={() => router.push({
+            pathname: '/PlaceReview',
+            params: { id:item.id },
+            
+        })}>
+        <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
             <Image style={styles.image} source={{ uri: item.image }} />
             <View style={[styles.iconContainer, { backgroundColor: colorScheme.background }]}>
                 <Pressable style={styles.icon} onPress={handleLike}>
@@ -33,6 +39,7 @@ export const DestinationsCard = ({ item }) => {
                 <Text style={[styles.recommendationRating, { color: colorScheme.text }]}>⭐{item.rating} ({item.TotalReview} Reviews)</Text>
             </View>
         </View>
+        </Pressable>
     );
 }
 

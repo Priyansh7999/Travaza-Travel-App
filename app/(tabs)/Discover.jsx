@@ -6,6 +6,7 @@ import Colors from '../../Theme/Colors';
 import { CityRecommendationList, DestinationRecommendationList } from '../../data/SearchDataList';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
+import {SearchDestinationCard} from '../../components/SearchDestinationCard';
 const Discover = () => {
      const [searchTerm, setSearchTerm] = useState('');
         const colorScheme = useTheme();
@@ -36,30 +37,8 @@ const Discover = () => {
                     <Ionicons name="filter-sharp" size={24} color={colorScheme.text} style={styles.icon} />
                 </View>
                 <ScrollView style={styles.recommendationContainer}>
-                    <View style={styles.recommendationHeader}>
-                        <Text style={[styles.recommendationTitle, {color: colorScheme.text}]}>Recommendations</Text>
-                        <TouchableOpacity style={styles.seeAll}>
-                            <Text style={[styles.seeAllText, {color: colorScheme.primary}]}>See all</Text>
-                        </TouchableOpacity>
-                    </View>
                     {filteredRecommendations.map((item, index) => (
-                        <View key={index} style={[styles.recommendationItem, {backgroundColor: colorScheme.surface}]}>
-                            <View style={styles.imageContainer}>
-                                <Image source={{ uri: item.image }} style={styles.image} />
-                            </View>  
-                            <View style={styles.textContainer}>
-                                <Text style={[styles.recommendationName,{color: colorScheme.text}]}>{item.destination || item.city}</Text>
-                                <Text style={[styles.recommendationPrice,{color: colorScheme.text}]}><Text style={[styles.price,{color: colorScheme.primary}]}>{item.price}</Text>/person</Text>
-                                {
-                                    item.destination && (
-                                        <Text style={[styles.recommendationLocation, {color: colorScheme.text}]}><Ionicons name="location" size={24} style={styles.icon} />{item.city}</Text>
-                                    )
-                                }
-                                <View>
-                                    <Text style={[styles.recommendationRating, {color: colorScheme.text}]}>⭐{item.rating} ({item.TotalReview} Reviews)</Text>
-                                </View>
-                            </View>
-                        </View>
+                        <SearchDestinationCard item={item} key={index} />
                     ))}
                 </ScrollView>
             </SafeAreaView>

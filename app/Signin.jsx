@@ -18,7 +18,7 @@ const Signin = () => {
                     <Image source={require('../assets/images/icon.png')} style={styles.logo} />
                     <Text style={[styles.logoTitle, { color: colorScheme.primary }]}>TRAVAZA</Text>
                 </View>
-                
+
                 <Text style={[styles.title, { color: colorScheme.text }]}>Let's get you Login!</Text>
                 <Text style={[styles.subtitle, { color: colorScheme.primary }]}>Enter your information below</Text>
             </View>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         height: 76,
     },
     logoTitle: {
-         fontSize: 15,
+        fontSize: 15,
         marginBottom: 15,
         marginLeft: 20,
         fontFamily: 'Lexend-Medium'
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Lexend'
     },
     inputField: {
-        borderWidth: 1,
-        borderColor: Colors.border,
+        borderWidth: 0.3,
+        borderColor: Colors.Button,
         borderRadius: 5,
         padding: 10,
         fontFamily: 'Lexend'

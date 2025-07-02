@@ -5,41 +5,94 @@ import { useTheme } from '../../Theme/ColorTheme';
 import { popularDestinations } from '../../data/PopularDestinations'
 import { DestinationsCard } from '../../components/DestinationsCard';
 import TripCategory from '../../components/TripCategory';
+import { router } from 'expo-router';
+import MonthTripPlan from '../../components/MonthTripPlan';
+import { packages } from '../../data/Package';
+import PackageCard from '../../components/PackageCard';
 const HomePage = () => {
     const colorScheme = useTheme();
+    const handleAllDestinations = () => {
+        router.push({
+            pathname: '/TripCategoryList',
+            params: {
+                name: 'All'
+            }
+        })
+    }
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
-            <View style={styles.header}>
-                <View style={styles.imageContainer}>
-                    <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+        <View style={[{flex: 1, backgroundColor: colorScheme.background }]}>
+            <ScrollView style={[styles.container]}>
+                <View style={styles.header}>
+                    <View style={styles.imageContainer}>
+                        <Image source={require('../../assets/images/icon.png')} style={styles.image} />
+                    </View>
+                    <View>
+                        <Text style={[styles.title, { color: colorScheme.text }]}>Hello, User 👋</Text>
+                        <Text style={[styles.subtitle, { color: colorScheme.primary }]}>What is your Vibe?</Text>
+                    </View>
                 </View>
                 <View>
-                    <Text style={[styles.title, { color: colorScheme.text }]}>Hello, User 👋</Text>
-                    <Text style={[styles.subtitle, { color: colorScheme.primary }]}>Where do you want to go?</Text>
+                    <TripCategory />
                 </View>
-            </View>
-            <View>
-                <TripCategory />
-            </View>
-            <View style={styles.popularDestinations}>
-                <View style={styles.recommendationHeader}>
-                    <Text style={[styles.recommendationTitle, { color: colorScheme.text }]}>Popular Destinations</Text>
-                    <TouchableOpacity style={styles.seeAll}>
-                        <Text style={[styles.seeAllText, { color: colorScheme.primary }]}>See all</Text>
-                    </TouchableOpacity>
+                <View style={styles.popularDestinations}>
+                    <View style={styles.recommendationHeader}>
+                        <Text style={[styles.recommendationTitle, { color: colorScheme.text }]}>Popular Destinations</Text>
+                        <TouchableOpacity style={styles.seeAll} onPress={handleAllDestinations}>
+                            <Text style={[styles.seeAllText, { color: colorScheme.primary }]}>See all</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 10 }}
+                    >
+                        {popularDestinations.map((item, index) => (
+                            <DestinationsCard key={index} item={item} />
+                        ))}
+                    </ScrollView>
                 </View>
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ gap: 10 }}
-                >
-                    {popularDestinations.map((item, index) => (
-                        <DestinationsCard key={index} item={item} />
-                    ))}
-                </ScrollView>
-
-            </View>
-        </SafeAreaView>
+                <View style={styles.popularDestinations}>
+                    <View style={styles.recommendationHeader}>
+                        <Text style={[styles.recommendationTitle, { color: colorScheme.text }]}>Trending Destinations</Text>
+                        <TouchableOpacity style={styles.seeAll} onPress={handleAllDestinations}>
+                            <Text style={[styles.seeAllText, { color: colorScheme.primary }]}>See all</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 10 }}
+                    >
+                        {popularDestinations.map((item, index) => (
+                            <DestinationsCard key={index} item={item} />
+                        ))}
+                    </ScrollView>
+                </View>
+                <View style={styles.popularDestinations}>
+                    <View style={styles.recommendationHeader}>
+                        <Text style={[styles.recommendationTitle, { color: colorScheme.text }]}>Top Packages for You</Text>
+                        <TouchableOpacity style={styles.seeAll} onPress={handleAllDestinations}>
+                            <Text style={[styles.seeAllText, { color: colorScheme.primary }]}>See all</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 10 }}
+                    >
+                        {packages.map((item, index) => (
+                            <PackageCard key={index} item={item} />
+                        ))}
+                    </ScrollView>
+                </View>
+                <View style={styles.popularDestinations}>
+                    <View style={styles.recommendationHeader}>
+                        <Text style={[styles.recommendationTitle, { color: colorScheme.text }]}>Top Tourist Collections</Text>
+                    </View>
+                    <MonthTripPlan />
+                </View>
+            </ScrollView>
+        </View>
     );
 }
 
@@ -47,8 +100,8 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         flex: 1,
-        height: '100%',
         padding: 20,
+        marginTop: 25,
     },
     header: {
         marginBottom: 20,
@@ -65,12 +118,14 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         alignItems: 'center',
-        
     },
     image: {
         width: 50,
         height: 50,
         borderRadius: 50
+    },
+    popularDestinations: {
+        marginVertical: 25,
     },
     recommendationHeader: {
         flexDirection: 'row',

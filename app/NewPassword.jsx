@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Lexend'
     },
     inputField: {
-        borderWidth: 1,
-        borderColor: Colors.border,
+        borderWidth: 0.3,
+        borderColor: Colors.Button,
         borderRadius: 5,
         padding: 10,
         fontFamily: 'Lexend'

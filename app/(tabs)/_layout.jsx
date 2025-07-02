@@ -19,8 +19,6 @@ const Layout = () => {
                             borderTopWidth: 0.2,
                             borderTopColor: Colors.border,
                             height: 70,
-                            paddingEnd:5,
-                            paddingStart:5,
                         },
                         tabBarLabelStyle: {
                             fontFamily: 'Lexend-Medium',

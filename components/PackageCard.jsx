@@ -4,7 +4,8 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../Theme/ColorTheme';
-export const DestinationsCard = ({ item }) => {
+
+const PackageCard = ({ item }) => {
     const colorScheme = useTheme();
     const [liked, setLiked] = useState(false);
     const handleLike = () => {
@@ -12,7 +13,7 @@ export const DestinationsCard = ({ item }) => {
     }
     return (
         <Pressable onPress={() => router.push({
-            pathname:'/PlaceReview',
+            pathname: '/PackageReview',
             params: { id: item.id },
 
         })}>
@@ -29,13 +30,15 @@ export const DestinationsCard = ({ item }) => {
                         }
                     </Pressable>
                 </View>
-                <View style={[styles.textContainer, { backgroundColor: colorScheme.backgroundCard}]}>
+                <View style={[styles.textContainer, { backgroundColor: colorScheme.backgroundCard }]}>
                     <View style={styles.titleContainer}>
-                        <Text style={[styles.recommendationName, { color: colorScheme.text }]}>{item.destination}</Text>
-                        <Text style={[styles.recommendationLocation, { color: colorScheme.text }]}><Ionicons name="location" size={24} style={styles.icon} />{item.place}</Text>
+                        <Text style={[styles.recommendationName, { color: colorScheme.text }]}>{item.name}</Text>
+                        <Text style={[styles.recommendationPrice, { color: colorScheme.text }]}>
+                            <Text style={[styles.price, { color: colorScheme.primary }]}>${item.price}</Text>/person
+                        </Text>
                     </View>
+                    <Text style={[styles.recommendationLocation, { color: colorScheme.text }]}><Ionicons name="location" size={24} style={styles.icon} />{item.state}, {item.country}</Text>
                     <Text style={[styles.recommendationRating, { color: colorScheme.text }]}>⭐{item.rating} ({item.TotalReview} Reviews)</Text>
-                    <Text style={[styles.recommendationPrice, { color: colorScheme.text }]}>{item.breifDescription}</Text>
                 </View>
             </View>
         </Pressable>
@@ -111,3 +114,4 @@ const styles = StyleSheet.create({
     },
 })
 
+export default PackageCard;

@@ -18,7 +18,9 @@ const lightTheme = {
     success: "#22C55E",
     warning: "#EAB308",
     error: "#EF4444",
-    info: "#3B82F6"
+    info: "#3B82F6",
+    backgroundCard:"rgba(255, 255, 255, 0.56)"
+
 }
 const DarkTheme = {
     primary: "#663CEF",
@@ -40,7 +42,7 @@ const DarkTheme = {
     error: "#EF4444",
     info: "#3B82F6",
     tab: "#374151",
-    
+    backgroundCard:"rgba(0, 0, 0, 0.56)"
 }
 export const useTheme = () => {
     const colorScheme = useColorScheme();

@@ -13,7 +13,7 @@ import { router } from 'expo-router';
 
 export const GuestSelection = ({ visible, onClose, onSelect }) => {
     const colorScheme = useTheme();
-    const [adult, setAdult] = useState(0);
+    const [adult, setAdult] = useState(1);
     const [children, setChildren] = useState(0);
     const [infants, setInfants] = useState(0);
 

@@ -13,12 +13,12 @@ const OnboardingScreen = () => {
     { 
       title: "Let's make your dream vacation", 
       content: "Turn your travel dreams into reality. Whether it's pristine beaches, majestic mountains, or vibrant cities we've got you covered.",
-      img: require("../assets/images/onboarding2.png"),
+      img: require("../assets/images/onboarding1.png"),
     },
     { 
       title: "Discover best places for your vacation", 
       content: "Explore hidden gems. Our smart recommendations consider your preferences to suggest places you'll absolutely love.",
-      img: require("../assets/images/onboarding5.png"),
+      img: require("../assets/images/onboarding2.png"),
     },
     { 
       title: "Make your path to effortless travel", 
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     top: 0,
+    resizeMode: 'stretch',
     left: 0,
   },
   overlay: {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 25,
     paddingTop: 25,
-    backgroundColor: Colors.DarkBackground,
+    // backgroundColor: Colors.DarkBackground,
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },

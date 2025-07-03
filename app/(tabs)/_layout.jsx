@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialIcons, Octicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -23,7 +23,8 @@ const Layout = () => {
                         tabBarLabelStyle: {
                             fontFamily: 'Lexend-Medium',
                             fontSize: 12,
-                        }
+                        },
+                        tabBarActiveTintColor: colorScheme.primary,
                     }}
                 >
                     <Tabs.Screen
@@ -32,27 +33,30 @@ const Layout = () => {
                             title: 'Home',
                             tabBarLabel: 'Home',
                             tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="home" size={size} color={color} />
+                                <Octicons name="home" size={size} color={color} />
                             ),
                         }}
                     />
                     <Tabs.Screen
                         name='Discover'
                         options={{
-                            title: 'Discover',
-                            tabBarLabel: 'Discover',
+                            title: '',
+                            tabBarLabel: '',
                             tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="search" size={size} color={color} />
+                                <View style={{backgroundColor: colorScheme.primary, width:80, height: 70, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginTop:20 }}>
+                                <Octicons name="search" size={size} color={'white'} />
+                                </View>
                             ),
                         }}
                     />
                     <Tabs.Screen
                         name='Favourite'
                         options={{
+                            href: null,
                             title: 'Favourite',
                             tabBarLabel: 'Favourite',
                             tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="heart" size={size} color={color} />
+                                <MaterialIcons name="favorite-outline" size={size} color={color} />
                             ),
                         }}
                     />
@@ -62,7 +66,7 @@ const Layout = () => {
                             title: 'Profile',
                             tabBarLabel: 'Profile',
                             tabBarIcon: ({ color, size }) => (
-                                <Ionicons name="person" size={size} color={color} />
+                                <AntDesign name="user" size={size} color={color} />
                             ),
                         }}
                     />

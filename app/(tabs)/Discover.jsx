@@ -24,7 +24,7 @@ const Discover = () => {
     const filteredRecommendations = [...filteredDestinationRecommendations];
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
+        <View style={[styles.container, { backgroundColor: colorScheme.background }]}>
             <Text style={[styles.title, { color: colorScheme.primary }]}>Discover the world with us </Text>
             <View style={styles.SearchContainer}>
                 <Ionicons name="search" size={36} color={colorScheme.text} style={styles.icon} />
@@ -55,13 +55,14 @@ const Discover = () => {
                     onClose={() => setShowFilter(false)}
                 />
             )}
-        </SafeAreaView>
+        </View>
     );
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        paddingHorizontal: 20,
+        paddingTop:25,
     },
     title: {
         fontSize: 40,

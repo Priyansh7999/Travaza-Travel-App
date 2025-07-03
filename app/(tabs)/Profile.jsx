@@ -67,7 +67,7 @@ const Profile = () => {
                 </Pressable>
                 <Pressable style={styles.option} onPress={() => router.push('/TermsCondition')}>
                     <View style={styles.optionLeft}>
-                        <Foundation name="clipboard-notes" size={24} style={styles.icon} color={colorScheme.text} />
+                        <Ionicons name="clipboard-outline" size={24} style={styles.icon} color={colorScheme.text} />
                         <Text style={[styles.optionText, { color: colorScheme.text }]}>Terms & Conditions</Text>
                     </View>
                     <View style={styles.optionRight}>

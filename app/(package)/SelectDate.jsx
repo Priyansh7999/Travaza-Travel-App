@@ -40,7 +40,7 @@ const SelectDate = ({ visible, onClose, onSelect }) => {
                 } else if (dateStr === selectedRange.endDate) {
                     marks[dateStr] = { endingDay: true, color: colorScheme.primary, textColor: 'white' };
                 } else {
-                    marks[dateStr] = { color: '#611FCA', textColor: 'black' };
+                    marks[dateStr] = { color: colorScheme.primary, textColor: 'white' };
                 }
                 current.setDate(current.getDate() + 1);
             }

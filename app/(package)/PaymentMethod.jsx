@@ -8,6 +8,7 @@ import Colors from '../../Theme/Colors';
 import Checkbox from 'expo-checkbox';
 import { userData } from '../../data/UserData';
 import ModalSuccessfull from '../../components/ModalSuccessfull';
+import { Image } from 'expo-image';
 const PaymentMethod = () => {
     const colorScheme = useTheme();
     const router = useRouter();
@@ -43,18 +44,22 @@ const PaymentMethod = () => {
                     <View style={{ flex: 1 }}>
                         <Text style={[styles.sectionTitle, { color: colorScheme.text }]}>Saved Card</Text>
                         <View style={styles.cardDesign}>
-                            <View style={[styles.cardLeft, { backgroundColor: '#6347f9' }]}>
+                            <Image source={require('../../assets/images/creditcard.png')} style={styles.cardImage} />
+                            <View style={[styles.cardLeft]}>
                                 <View style={styles.cardText}>
-                                    <Text style={styles.cardNumber}>{cardNumber}</Text>
+                                    <Text style={styles.cardNumber}>
+                                        {cardNumber.replace(/(.{4})/g, '$1 ').trim()}
+                                    </Text>
                                     <View style={styles.cardHolderExpiry}>
                                         <Text style={styles.cardHolder}>{holderName}</Text>
                                         <Text style={styles.cardExpiry}>{expiryDate}</Text>
                                     </View>
                                 </View>
                             </View>
-                            <View style={[styles.cardRight, { backgroundColor: colorScheme.surface }]}>
-                                <Fontisto name="mastercard" size={24} color='orange' style={styles.icon} />
-                                <MaterialIcons name="sim-card" size={24} color={colorScheme.text} style={styles.cardIcon} />
+                            <View style={styles.cardRight}>
+                                <View style={styles.cardIcon}>
+                                    <Fontisto name="mastercard" size={24} color={colorScheme.text} />
+                                </View>
                             </View>
                         </View>
 
@@ -179,6 +184,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '25%',
     },
+    cardImage: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        borderRadius: 15,
+    },
     cardLeft: {
         width: '80%',
         height: '100%',
@@ -199,7 +210,7 @@ const styles = StyleSheet.create({
         padding: 10
     },
     cardNumber: {
-        color: 'white',
+        color: 'black',
         fontSize: 16,
         fontFamily: 'Lexend-Medium',
         letterSpacing: 2,
@@ -210,47 +221,30 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     cardHolder: {
-        color: 'white',
+        color: 'red',
         fontSize: 12,
         fontFamily: 'Lexend',
         textAlign: 'left',
     },
     cardExpiry: {
-        color: 'white',
+        color: 'yellow',
         fontSize: 12,
         fontFamily: 'Lexend',
         textAlign: 'right',
+    },
+    cardDetails: {
+        marginTop: 5,
     },
     cardRight: {
         width: '20%',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderTopEndRadius: 15,
-        borderBottomEndRadius: 15,
-    },
-    icon: {
-        flex: 1,
-        position: 'absolute',
-        top: 0,
-        width: '100%',
-        right: 0,
-        justifyContent: 'space-between',
-        gap: 10,
-        padding: 10
     },
     cardIcon: {
-        flex: 1,
         position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        right: 0,
-        justifyContent: 'space-between',
-        gap: 10,
-        padding: 10
-    },
-    cardDetails: {
-        marginTop: 5,
+        right: 10,
+        top: 20,
     },
     form: {
         padding: 10,

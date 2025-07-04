@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import React from 'react';
 import { Image } from 'expo-image';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import { useTheme } from '../Theme/ColorTheme';
 import Colors from '../Theme/Colors';
 import { router } from 'expo-router';
@@ -35,7 +35,7 @@ export const SmallDestinationCard = ({ filteredRecommendations, type }) => {
                         </View>
 
                         <Text style={[styles.recommendationLocation, { color: colorScheme.text }]}>
-                            <Ionicons name="location" size={24} style={styles.icon} />
+                            <Octicons name="location" size={24} style={styles.icon} />
                             {item.state || item.place}
                         </Text>
                         <View>

@@ -1,16 +1,54 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import Checkbox from 'expo-checkbox';
 import Colors from '../Theme/Colors';
 import { useTheme } from '../Theme/ColorTheme';
 import { Image } from 'expo-image';
+import { supabase } from '../lib/supabase';
 const Signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isChecked, setChecked] = useState(false);
     const colorScheme = useTheme();
+    const [loading, setLoading] = useState(false)
+    async function signInWithEmail() {
+        if (!email.trim() || !password.trim()) {
+            Alert.alert('Missing fields', 'Please enter both email and password.')
+            return
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(email)) {
+            Alert.alert('Invalid email', 'Please enter a valid email address.')
+            return
+        }
+        if (password.length < 6) {
+            Alert.alert('Weak Password', 'Password must be at least 6 characters.')
+            return
+        }
+        try {
+            setLoading(true)
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            })
+            if (error) {
+                if (error.message.includes('Invalid login credentials')) {
+                    Alert.alert('Login Failed', 'Incorrect email or password.')
+                } else {
+                    Alert.alert('Login Error', error.message)
+                }
+            } else {
+                router.replace("/HomePage")
+            }
+        } catch (err) {
+            console.error('Login error:', err)
+            Alert.alert('Unexpected Error', 'Something went wrong. Please try again.')
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
             <View style={styles.header}>
@@ -59,7 +97,7 @@ const Signin = () => {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={[styles.button, { backgroundColor: Colors.Button }]} onPress={() => { router.push("/HomePage") }}>
+                    <TouchableOpacity style={[styles.button, { backgroundColor: Colors.Button }]} onPress={signInWithEmail}>
                         <Text style={[styles.buttonText, { color: Colors.ButtonText }]}>Login</Text>
                     </TouchableOpacity>
                     <Text style={[styles.subtitle, { color: colorScheme.text }]}>Don't have an account? <Text style={styles.link} onPress={() => { router.push("/Signup") }}>Register Now</Text></Text>

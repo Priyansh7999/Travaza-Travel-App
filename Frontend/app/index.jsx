@@ -1,72 +1,95 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions, ActivityIndicator } from 'react-native';
 import { Image } from 'expo-image';
 import Colors from '../Theme/Colors';
 import { useRouter } from 'expo-router';
+import { supabase } from '../lib/supabase';
+import { useTheme } from '../Theme/ColorTheme';
 const { width, height } = Dimensions.get('window');
 
 const OnboardingScreen = () => {
-  const [currentStep, setCurrentStep] = useState(0);
   const router = useRouter();
+  const [currentStep, setCurrentStep] = useState(0);
+  const colorScheme = useTheme();
+  const [loading, setLoading] = useState(true); // 🔧 loading flag
+
   const onboardingData = [
-    { 
-      title: "Let's make your dream vacation", 
-      content: "Turn your travel dreams into reality. Whether it's pristine beaches, majestic mountains, or vibrant cities we've got you covered.",
+    {
+      title: "Let's make your dream vacation",
+      content:
+        "Turn your travel dreams into reality. Whether it's pristine beaches, majestic mountains, or vibrant cities we've got you covered.",
       img: require("../assets/images/onboarding1.png"),
     },
-    { 
-      title: "Discover best places for your vacation", 
-      content: "Explore hidden gems. Our smart recommendations consider your preferences to suggest places you'll absolutely love.",
+    {
+      title: "Discover best places for your vacation",
+      content:
+        "Explore hidden gems. Our smart recommendations consider your preferences to suggest places you'll absolutely love.",
       img: require("../assets/images/onboarding2.png"),
     },
-    { 
-      title: "Make your path to effortless travel", 
-      content: "Say goodbye to travel stress! we streamline every step of your journey. Focus on making memories while we handle the details.",
+    {
+      title: "Make your path to effortless travel",
+      content:
+        "Say goodbye to travel stress! we streamline every step of your journey. Focus on making memories while we handle the details.",
       img: require("../assets/images/onboarding3.png"),
-    }
+    },
   ];
-  
-  const handleNext = () => {
-    if(isLastStep) {
-      router.push("/Signup");
-    }else setCurrentStep(currentStep + 1);
-  };
-  const handlePrevious = () => {
-    if(currentStep === 0) {
-      return;
-    }
-    setCurrentStep(currentStep - 1);
-  }
+
   const isLastStep = currentStep === onboardingData.length - 1;
 
+  const handleNext = () => {
+    if (isLastStep) {
+      router.push("/Signup");
+    } else {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep === 0) return;
+    setCurrentStep(currentStep - 1);
+  };
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        router.replace("/HomePage");
+      } else {
+        setLoading(false); // ✅ Show onboarding only if not logged in
+      }
+    };
+
+    checkSession();
+  }, []);
+
+  // 👇 Show loading spinner while checking session
+  if (loading) {
+    return (
+      <View style={[styles.loaderContainer, {backgroundColor: colorScheme.background}]}>
+        <Image source={require("../assets/images/icon.png")} style={styles.loader} />
+      </View>
+    );
+  }
+
+  // 👇 Normal onboarding screen
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={onboardingData[currentStep]?.img}
-          style={styles.image}
-        />
-
+        <Image source={onboardingData[currentStep]?.img} style={styles.loadingimage} />
         <View style={styles.overlay} />
-
         <View style={styles.topContent}>
-          {
-            currentStep !== 0 && (
-              <TouchableOpacity onPress={handlePrevious}>
-                <Ionicons name="arrow-back" size={24} style={styles.backButton} />
-              </TouchableOpacity>
-            )
-          }
+          {currentStep !== 0 && (
+            <TouchableOpacity onPress={handlePrevious}>
+              <Ionicons name="arrow-back" size={24} style={styles.backButton} />
+            </TouchableOpacity>
+          )}
         </View>
-
         <View style={styles.bottomContent}>
-
           <View style={styles.textContent}>
             <Text style={styles.title}>{onboardingData[currentStep].title}</Text>
             <Text style={styles.contentText}>{onboardingData[currentStep].content}</Text>
           </View>
-
           <View style={styles.progressContainer}>
             {onboardingData.map((_, index) => (
               <View
@@ -78,26 +101,35 @@ const OnboardingScreen = () => {
               />
             ))}
           </View>
-
           <View style={styles.navigation}>
             <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
               <Text style={styles.nextText}>
-                {isLastStep ? 'Get Started' : 'Next Step'}
+                {isLastStep ? "Get Started" : "Next Step"}
               </Text>
               <Ionicons name="arrow-forward" size={24} style={styles.nextIcon} />
             </TouchableOpacity>
           </View>
-
         </View>
       </View>
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingimage: {
+    width: '100%',
+    height: '100%',
+  },
+
   imageContainer: {
     flex: 1,
     position: 'relative',
@@ -124,13 +156,13 @@ const styles = StyleSheet.create({
     left: 20,
   },
   backButton: {
-    padding:10,
+    padding: 10,
     color: 'white',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     borderRadius: 50,
     fontSize: 16,
     color: 'white',
-    fontFamily:'Lexend-Bold',
+    fontFamily: 'Lexend-Bold',
   },
   bottomContent: {
     position: 'absolute',
@@ -171,14 +203,14 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: '#FFFFFF',
     textAlign: 'center',
-    fontFamily:'Lexend-Medium',
+    fontFamily: 'Lexend-Medium',
     lineHeight: 34,
   },
   contentText: {
     fontSize: 16,
     color: '#D1D2A2',
     textAlign: 'center',
-    fontFamily:'Lexend-Light',
+    fontFamily: 'Lexend-Light',
     padding: 10,
   },
   navigation: {
@@ -200,7 +232,7 @@ const styles = StyleSheet.create({
     color: Colors.ButtonText,
     fontSize: 16,
     fontWeight: '600',
-    fontFamily:'Lexend-Bold',
+    fontFamily: 'Lexend-Bold',
   },
   nextIcon: {
     marginLeft: 10,

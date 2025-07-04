@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
@@ -133,7 +133,7 @@ const PackageReview = () => {
                             </Text>
                         </View>
                         <Text style={[styles.recommendationLocation, { color: colorScheme.text }]}>
-                            <Ionicons name="location" size={16} color={colorScheme.text} /> {place.state}, {place.country}
+                            <Octicons name="location" size={16} color={colorScheme.text} /> {place.state}, {place.country}
                         </Text>
                         <Text style={[styles.recommendationRating, { color: colorScheme.text }]}>
                             ⭐ {place.rating} ({place.TotalReview} Reviews)

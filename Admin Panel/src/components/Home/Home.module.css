@@ -1,0 +1,363 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #171e3c 0%, #764ba2 100%);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Heading Section */
+.heading {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 1rem 0;
+  animation: slideInDown 1s ease-out;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin: 0;
+  animation: slideInUp 1s ease-out 0.3s both;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cards Container */
+.cards {
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  animation: cardSlideIn 0.8s ease-out;
+  animation-fill-mode: both;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.cards:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.cards:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.cards:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.cards:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.25);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* Card Content */
+.cards p {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+}
+
+.cards h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 2;
+  animation: numberCount 2s ease-out;
+}
+
+@keyframes numberCount {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Card Grid Layout */
+.container .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* Card Icons - Add these as pseudo-elements for visual enhancement */
+.cards:nth-child(1)::after {
+  content: '👥';
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.3;
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+.cards:nth-child(2)::after {
+  content: '🏙️';
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.3;
+  animation: iconPulse 3s ease-in-out infinite 1s;
+}
+
+.cards:nth-child(3)::after {
+  content: '📍';
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  opacity: 0.3;
+  animation: iconPulse 3s ease-in-out infinite 2s;
+}
+
+@keyframes iconPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+/* Additional Floating Elements */
+.container .container::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  animation: floatLeft 10s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.container .container::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  animation: floatRight 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatLeft {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(50px, -30px) rotate(120deg);
+  }
+
+  66% {
+    transform: translate(-30px, 50px) rotate(240deg);
+  }
+}
+
+@keyframes floatRight {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(-50px, 30px) rotate(-120deg);
+  }
+
+  66% {
+    transform: translate(30px, -50px) rotate(-240deg);
+  }
+}
+
+/* Loading State */
+.cards.loading h2 {
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+  }
+
+  .heading {
+    margin-bottom: 2rem;
+  }
+
+  .container .container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cards {
+    padding: 2rem;
+  }
+
+  .cards h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .cards {
+    padding: 1.5rem;
+  }
+
+  .cards h2 {
+    font-size: 2rem;
+  }
+
+  .cards p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .cards {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cards p {
+    color: #9ca3af;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  .container::before,
+  .container::after,
+  .container .container::before,
+  .container .container::after {
+    animation: none;
+  }
+
+  .cards::before {
+    display: none;
+  }
+
+  .cards:hover {
+    transform: none;
+  }
+
+  .title,
+  .subtitle,
+  .cards {
+    animation: none;
+  }
+}

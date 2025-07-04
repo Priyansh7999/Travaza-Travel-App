@@ -7,7 +7,12 @@ import { Image } from 'expo-image';
 import { userData } from '../../data/UserData';
 import { AntDesign, Feather, Foundation, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { supabase } from '../../lib/supabase';
 const Profile = () => {
+    const logout = () => {
+        supabase.auth.signOut();
+        router.replace('/');
+    }
     const colorScheme = useTheme();
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
@@ -74,7 +79,7 @@ const Profile = () => {
                         <Ionicons name="chevron-forward" size={24} color={colorScheme.text} />
                     </View>
                 </Pressable>
-                <Pressable style={styles.option}>
+                <Pressable style={styles.option} onPress={logout}>
                     <View style={styles.optionLeft}>
                         <MaterialIcons name="logout" size={24} style={styles.icon} color="red" />
                         <Text style={[styles.optionText, { color: colorScheme.error }]}>Logout</Text>

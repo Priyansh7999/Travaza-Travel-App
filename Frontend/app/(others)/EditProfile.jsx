@@ -7,11 +7,28 @@ import { userData } from '../../data/UserData';
 import Colors from '../../Theme/Colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import axios from 'axios';
 const EditProfile = () => {
     const colorScheme = useTheme();
     const [name, setName] = useState(userData.name);
     const [email, setEmail] = useState(userData.email);
     const [phone, setPhone] = useState(userData.phone);
+    const sendDataToBackend = async () => {
+        ToastAndroid.show('Profile Updated', ToastAndroid.SHORT); 
+       
+        try {
+            const response = await axios.post('http://192.168.140.236:5000/api/data', {
+                name: name,
+                email: email,
+                phone: phone
+            })
+            console.log(response.data)
+            router.back() 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: colorScheme.background }]}>
             <View style={[styles.header]}>
@@ -51,7 +68,7 @@ const EditProfile = () => {
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, { backgroundColor: Colors.Button }]} onPress={() => {  ToastAndroid.show('Profile Updated', ToastAndroid.SHORT); router.back() }}>
+                <TouchableOpacity style={[styles.button, { backgroundColor: Colors.Button }]} onPress={sendDataToBackend}>
                     <Text style={[styles.buttonText, { color: Colors.ButtonText }]}>Update</Text>
                 </TouchableOpacity>
             </View>

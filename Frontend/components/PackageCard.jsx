@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Octicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -37,7 +37,7 @@ const PackageCard = ({ item }) => {
                             <Text style={[styles.price, { color: colorScheme.primary }]}>${item.price}</Text>/person
                         </Text>
                     </View>
-                    <Text style={[styles.recommendationLocation, { color: colorScheme.text }]}><Ionicons name="location" size={24} style={styles.icon} />{item.state}, {item.country}</Text>
+                    <Text style={[styles.recommendationLocation, { color: colorScheme.text }]}><Octicons name="location" size={24} style={styles.icon} />{item.state}, {item.country}</Text>
                     <Text style={[styles.recommendationRating, { color: colorScheme.text }]}>⭐{item.rating} ({item.TotalReview} Reviews)</Text>
                 </View>
             </View>

@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Card {
+  id         Int    @id @default(autoincrement())
+  cardNumber Int
+  cardHolder String
+  expiryDate String
+  cvv        Int
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Bookmarked {
+  id      Int  @id @default(autoincrement())
+  placeId Int
+  userId  Int
+  user    User @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  email        String   @unique
+  phone        Int
+  profileImage String
+
+  cards    Card[]
+  bookmark Bookmarked[]
+}
+
+model PlaceReviews {
+  id           Int         @id @default(autoincrement())
+  profileImage String
+  name         String
+  review       String      @db.Text
+  rate         Int
+  createdAt    DateTime    @default(now())
+  attractionId Int
+  attraction   Attractions @relation(fields: [attractionId], references: [id])
+}
+
+model Attractions {
+  id               Int            @id @default(autoincrement())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  destination      String
+  place            String
+  image            String[]       
+  description      String         @db.Text
+  rating           Float          @default(0.0)
+  
+  category         String[]       
+  latitude         Float?
+  longitude        Float?
+  AgeLimit         Int           
+
+  timing           String         
+  suggestedDuration String       
+  tips             String[]      
+
+  reviews          PlaceReviews[]
+}
+
+model CityReview {
+  id           Int    @id @default(autoincrement())
+  name         String
+  profileImage String
+  review       String @db.Text
+  rate         Int
+  cityId       Int
+  city         Cities @relation(fields: [cityId], references: [id])
+}
+
+model Cities {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  state        String
+  country      String
+  price        Int
+  image        String[]
+  description  String   @db.Text
+  rating       Float    @default(0.0)
+  tripDuration Int
+  category     String[]
+  ageLimit     Int
+
+  peakSeason     String[] 
+  moderateSeason String[]
+  offSeason      String[]
+
+  history   String   @db.Text
+  famousFor String
+  weather   String   @db.Text
+  note      String[] 
+  foodToTry Json? 
+
+  reviews CityReview[]
+}
